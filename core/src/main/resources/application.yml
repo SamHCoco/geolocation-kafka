@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: core-service
+  output:
+    ansi:
+      enabled: ALWAYS
+
+server:
+  port: 9000

@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: tracker-service
+  output:
+    ansi:
+      enabled: ALWAYS
+
+server:
+  port: 9002

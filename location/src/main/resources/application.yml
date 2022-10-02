@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: location-service
+  output:
+    ansi:
+      enabled: ALWAYS
+
+server:
+  port: 9001
