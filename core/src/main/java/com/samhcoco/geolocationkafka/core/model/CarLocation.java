@@ -1,16 +1,14 @@
 package com.samhcoco.geolocationkafka.core.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class CarLocation {
-    private int carId;
+    private Integer carId;
     private float latitude;
     private float longitude;
 }
