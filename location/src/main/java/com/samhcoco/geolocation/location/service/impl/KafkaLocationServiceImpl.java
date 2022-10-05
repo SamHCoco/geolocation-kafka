@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import static com.samhcoco.geolocationkafka.core.constants.KafkaConstants.CAR_LOCATION_TOPIC;
+import static java.lang.String.format;
 
 @Slf4j
 @Service
@@ -22,9 +23,11 @@ public class KafkaLocationServiceImpl implements LocationService {
 
     @Override
     public void update(@NonNull CarLocation carLocation) {
-        val result = kafkaTemplate.send(CAR_LOCATION_TOPIC, carLocation);
+        val partitionKey = format("%s-%s", CAR_LOCATION_TOPIC, carLocation.getCarId() - 1);
 
-        result.addCallback(new ListenableFutureCallback<SendResult<String, CarLocation>>() {
+        val resultFuture = kafkaTemplate.send(CAR_LOCATION_TOPIC, partitionKey, carLocation);
+
+        resultFuture.addCallback(new ListenableFutureCallback<SendResult<String, CarLocation>>() {
             @Override
             public void onSuccess(SendResult<String, CarLocation> result) {
                 log.info("Successfully sent message {} to topic '{}' for Car ID '{}'",

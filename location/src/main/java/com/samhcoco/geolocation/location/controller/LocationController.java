@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.samhcoco.geolocation.location.service.impl.KafkaLocationServiceImpl;
 import com.samhcoco.geolocationkafka.core.exceptions.InvalidInputException;
 import com.samhcoco.geolocationkafka.core.model.CarLocation;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;

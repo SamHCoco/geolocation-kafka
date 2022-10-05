@@ -14,6 +14,7 @@ import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
@@ -36,11 +37,14 @@ public class ConsumerConfiguration {
 
     @Bean
     public ConsumerFactory<String, CarLocation> consumerFactory() {
-        return new DefaultKafkaConsumerFactory<>(consumerConfiguration());
+        return new DefaultKafkaConsumerFactory<>(
+                consumerConfiguration(),
+                new StringDeserializer(),
+                new JsonDeserializer<>(CarLocation.class));
     }
 
     @Bean
-    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, CarLocation>> listenerFactory() {
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, CarLocation>> carLocationListenerFactory() {
         val factory = new ConcurrentKafkaListenerContainerFactory<String, CarLocation>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
